@@ -44,7 +44,7 @@ def calculate_intensity(r, lambda_light, R_lens):
     # 计算薄膜厚度d
     d = R_lens - np.sqrt(R_lens**2 - r**2)
     # 计算光强
-    intensity = 4 * (np.sin(2 * np.pi * d / lambda_light))**2
+    intensity = 4 * np.sin(2 * np.pi * d / lambda_light)**2
     return intensity
 
 def plot_newton_rings(intensity):
@@ -56,11 +56,11 @@ def plot_newton_rings(intensity):
     """
     # 在此实现图像绘制
     plt.figure(figsize=(10, 10))
-     plt.imshow(intensity, cmap='gray', extent=[-0.001, 0.001, -0.001, 0.001],vmin=0,vmax=1)
+    plt.imshow(intensity, cmap='gray', extent=[-0.001, 0.001, -0.001, 0.001],vmin=0,vmax=1)
     plt.colorbar(label='Intensity')
     plt.title('Newton Rings Interference Pattern')
-    plt.xlabel('x (m)')
-    plt.ylabel('y (m)')
+    plt.xlabel("x (m)")
+    plt.ylabel("y (m)")
     plt.show()
 
 if __name__ == "__main__":
