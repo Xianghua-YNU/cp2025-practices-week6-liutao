@@ -12,15 +12,6 @@ def maxwell_distribution(v, vp):
     coefficient = 4 / (np.sqrt(np.pi)) * (v**2) / (vp**3)
     exponent = -(v**2) / (vp**2)
     return coefficient * np.exp(exponent)
-    参数：
-    v : 分子速率 (m/s)
-    vp : 最概然速率 (m/s)
-    
-    返回：
-    分布函数f(v)的值
-    """
-    # 在此实现麦克斯韦分布函数
-    pass
 
 def percentage_0_to_vp(vp):
     """
@@ -28,14 +19,6 @@ def percentage_0_to_vp(vp):
     """
     integral, _ = quad(maxwell_distribution, 0, vp, args=(vp,))
     return integral * 100
-    参数：
-    vp : 最概然速率 (m/s)
-    
-    返回：
-    百分比值
-    """
-    # 在此实现0到vp的积分计算
-    pass
 
 def percentage_0_to_3_3vp(vp):
     """
@@ -43,14 +26,6 @@ def percentage_0_to_3_3vp(vp):
     """
     integral, _ = quad(maxwell_distribution, 0, 3.3*vp, args=(vp,))
     return integral * 100
-    参数：
-    vp : 最概然速率 (m/s)
-    
-    返回：
-    百分比值
-    """
-    # 在此实现0到3.3vp的积分计算
-    pass
 
 def percentage_3e4_to_3e8(vp):
     """
@@ -59,14 +34,6 @@ def percentage_3e4_to_3e8(vp):
     integral, _ = quad(maxwell_distribution, 3e4, 3e8, args=(vp,))
     return integral * 100
 
-    参数：
-    vp : 最概然速率 (m/s)
-    
-    返回：
-    百分比值
-    """
-    # 在此实现3×10^4到3×10^8的积分计算
-    pass
 
 def trapezoidal_rule(f, a, b, n):
     """
@@ -87,18 +54,6 @@ def percentage_0_to_3_3vp_trap(vp, n):
 
 def percentage_3e4_to_3e8_trap(vp, n):
     return trapezoidal_rule(lambda v: maxwell_distribution(v, vp), 3e4, 3e8, n) * 100
-
-    参数:
-    f -- 被积函数
-    a -- 积分下限
-    b -- 积分上限
-    n -- 区间划分数
-    
-    返回:
-    积分近似值
-    """
-    # 在此实现梯形积分法则
-    pass
 
 def compare_methods(task_name, quad_func, trap_func, vp, n_values=[10, 100, 1000]):
     """比较quad和梯形积分法的结果和性能"""
