@@ -61,31 +61,34 @@ def parameter_sensitivity_analysis():
     1. 分析不同频率差对拍频的影响
     2. 分析不同振幅比例对拍频的影响
     """
-    # 学生任务9: 频率差分析
+    # 学生任务9: 频率差分析 - 修改为指定Δf值
     plt.figure(1, figsize=(12, 8))
     base_freq = 440
-    freq_diffs = np.linspace(1, 20, 10)  # 1Hz到20Hz的频率差
+    freq_diffs = [1, 2, 5, 10]  # 指定的频率差列表
     
     for i, diff in enumerate(freq_diffs):
-        t, wave, _ = simulate_beat_frequency(f1=base_freq, f2=base_freq+diff, show_plot=False)
-        plt.plot(t, wave + i*2, label=f'Frequency diff: {diff}Hz')
+        t, wave, beat_freq = simulate_beat_frequency(f1=base_freq, f2=base_freq+diff, show_plot=False)
+        plt.plot(t, wave + i*2, label=f'Δf={diff}Hz (Beat Freq: {beat_freq}Hz)')
+        plt.axhline(y=i*2, color='gray', linestyle='--', alpha=0.3)  # 添加参考线
     
     plt.xlabel('Time (s)')
     plt.ylabel('Amplitude (offset)')
-    plt.title('Effect of Frequency Difference on Beat Pattern')
+    plt.title('Effect of Frequency Difference on Beat Pattern (f1=440Hz)')
     plt.legend()
+    plt.grid(True, alpha=0.3)
     
-    # 学生任务10: 振幅比例分析
+    # 学生任务10: 振幅比例分析 - 修改为指定A₂/A₁值
     plt.figure(2, figsize=(12, 8))
-    amplitude_ratios = np.linspace(0.2, 2, 10)  # 振幅比例从0.2到2
+    amplitude_ratios = [0.5, 1.0, 2.0, 5.0]  # 指定的振幅比例列表
     
     for i, ratio in enumerate(amplitude_ratios):
-        t, wave, _ = simulate_beat_frequency(A1=1.0, A2=ratio, show_plot=False)
-        plt.plot(t, wave + i*2, label=f'Amplitude ratio: {ratio:.1f}')
+        t, wave, beat_freq = simulate_beat_frequency(A1=1.0, A2=ratio, show_plot=False)
+        plt.plot(t, wave + i*2, label=f'A₂/A₁={ratio} (Beat Freq: {beat_freq}Hz)')
+        plt.axhline(y=i*2, color='gray', linestyle='--', alpha=0.3)  # 添加参考线
     
     plt.xlabel('Time (s)')
     plt.ylabel('Amplitude (offset)')
-    plt.title('Effect of Amplitude Ratio on Beat Pattern')
+    plt.title('Effect of Amplitude Ratio on Beat Pattern (f1=440Hz, f2=444Hz)')
     plt.legend()
 
 if __name__ == "__main__":
