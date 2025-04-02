@@ -43,8 +43,6 @@ def calculate_intensity(r, lambda_light, R_lens):
     # 在此实现光强计算
     # 计算薄膜厚度d
     d = R_lens - np.sqrt(R_lens**2 - r**2)
-    # 计算相位差
-    phase_diff = (2 * np.pi / lambda_light) * 2 * d + np.pi
     # 计算光强
     intensity = 4 * (np.sin(2 * np.pi * d / lambda_light))**2
     return intensity
@@ -58,7 +56,7 @@ def plot_newton_rings(intensity):
     """
     # 在此实现图像绘制
     plt.figure(figsize=(8, 8))
-    plt.imshow(intensity, cmap='gray', extent=[-radius, radius, -radius, radius])
+    plt.imshow(intensity, cmap='gray', extent=[-0.001, 0.001, -0.001, 0.001])
     plt.colorbar(label='Intensity')
     plt.title('Newton Rings Interference Pattern')
     plt.xlabel('x (m)')
