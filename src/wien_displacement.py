@@ -95,7 +95,7 @@ def calculate_temperature(wavelength, x0=5.0):
     float: 黑体温度，单位：开尔文
     """
     # TODO: 计算温度
-     _, b = solve_wien_constant(x0)
+    _, b = solve_wien_constant(x0)
     return b / wavelength
 
 if __name__ == "__main__":
