@@ -22,7 +22,11 @@ def generate_grid():
     tuple: 包含网格坐标X、Y以及径向距离r的元组
     """
     # 在此生成x和y方向的坐标网格
-    pass
+    x=np.linspace(-0.001,0.001,1000)
+    y=np.linspace(-0.001,0.001,1000)
+    X,Y=np.meshgrid(x,y)
+    r=np.sqrt(X**2+Y**2)
+    return X,Y,r
 
 def calculate_intensity(r, lambda_light, R_lens):
     """
@@ -37,7 +41,11 @@ def calculate_intensity(r, lambda_light, R_lens):
     np.ndarray: 干涉强度分布数组
     """
     # 在此实现光强计算
-    pass
+    # 计算薄膜厚度d
+    d = R_lens - np.sqrt(R_lens**2 - r**2)
+    # 计算光强
+    intensity = 4 * np.sin(2 * np.pi * d / lambda_light)**2
+    return intensity
 
 def plot_newton_rings(intensity):
     """
@@ -47,7 +55,13 @@ def plot_newton_rings(intensity):
     intensity (np.ndarray): 干涉强度分布数组
     """
     # 在此实现图像绘制
-    pass
+    plt.figure(figsize=(10, 10))
+    plt.imshow(intensity, cmap='gray', extent=[-0.001, 0.001, -0.001, 0.001],vmin=0,vmax=1)
+    plt.colorbar(label='Intensity')
+    plt.title('Newton Rings Interference Pattern')
+    plt.xlabel("x (m)")
+    plt.ylabel("y (m)")
+    plt.show()
 
 if __name__ == "__main__":
     # 1. 设置参数
