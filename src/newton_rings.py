@@ -55,7 +55,7 @@ def plot_newton_rings(intensity):
     intensity (np.ndarray): 干涉强度分布数组
     """
     # 在此实现图像绘制
-    plt.figure(figsize=(8, 8))
+    plt.figure(figsize=(10, 10))
      plt.imshow(intensity, cmap='gray', extent=[-0.001, 0.001, -0.001, 0.001],vmin=0,vmax=1)
     plt.colorbar(label='Intensity')
     plt.title('Newton Rings Interference Pattern')
