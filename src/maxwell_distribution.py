@@ -8,7 +8,10 @@ vp = 1578
 def maxwell_distribution(v, vp):
     """
     计算麦克斯韦速率分布函数值
-    
+    """
+    coefficient = 4 / (np.sqrt(np.pi)) * (v**2) / (vp**3)
+    exponent = -(v**2) / (vp**2)
+    return coefficient * np.exp(exponent)
     参数：
     v : 分子速率 (m/s)
     vp : 最概然速率 (m/s)
@@ -22,7 +25,9 @@ def maxwell_distribution(v, vp):
 def percentage_0_to_vp(vp):
     """
     计算速率在0到vp间隔内的分子数占总分子数的百分比
-    
+    """
+    integral, _ = quad(maxwell_distribution, 0, vp, args=(vp,))
+    return integral * 100
     参数：
     vp : 最概然速率 (m/s)
     
@@ -35,7 +40,9 @@ def percentage_0_to_vp(vp):
 def percentage_0_to_3_3vp(vp):
     """
     计算速率在0到3.3vp间隔内的分子数占总分子数的百分比
-    
+    """
+    integral, _ = quad(maxwell_distribution, 0, 3.3*vp, args=(vp,))
+    return integral * 100
     参数：
     vp : 最概然速率 (m/s)
     
@@ -48,7 +55,10 @@ def percentage_0_to_3_3vp(vp):
 def percentage_3e4_to_3e8(vp):
     """
     计算速率在3×10^4到3×10^8 m/s间隔内的分子数占总分子数的百分比
-    
+     """
+    integral, _ = quad(maxwell_distribution, 3e4, 3e8, args=(vp,))
+    return integral * 100
+
     参数：
     vp : 最概然速率 (m/s)
     
@@ -61,7 +71,23 @@ def percentage_3e4_to_3e8(vp):
 def trapezoidal_rule(f, a, b, n):
     """
     使用梯形法则计算函数f在区间[a,b]上的定积分
-    
+    """
+    delta_x = (b - a) / n
+    total = 0.5 * (f(a) + f(b))
+    for i in range(1, n):
+        x = a + i * delta_x
+        total += f(x)
+    return total * delta_x
+# 为每个任务添加梯形积分版本
+def percentage_0_to_vp_trap(vp, n):
+    return trapezoidal_rule(lambda v: maxwell_distribution(v, vp), 0, vp, n) * 100
+
+def percentage_0_to_3_3vp_trap(vp, n):
+    return trapezoidal_rule(lambda v: maxwell_distribution(v, vp), 0, 3.3*vp, n) * 100
+
+def percentage_3e4_to_3e8_trap(vp, n):
+    return trapezoidal_rule(lambda v: maxwell_distribution(v, vp), 3e4, 3e8, n) * 100
+
     参数:
     f -- 被积函数
     a -- 积分下限
