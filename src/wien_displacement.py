@@ -25,17 +25,22 @@ def plot_wien_equation():
     两条曲线的交点即为方程的解
     """
     # TODO: 创建x轴数据点
-    x = None
+    x = np.linspace(-1, 6, 100)
     
     # TODO: 创建图形并设置大小
-    
+    plt.figure(figsize=(8, 6))
     # TODO: 绘制两条曲线
-    
+    plt.plot(x, 5 * np.exp(-x), label='$y=5e^{-x}$')
+    plt.plot(x, 5 - x, linestyle='-', label='$y=5 - x$')
     # TODO: 设置坐标轴标签和标题
-    
+    plt.xlabel('x')
+    plt.ylabel('y')
     # TODO: 添加图例和网格
-    
+    plt.title('维恩方程图解')
+    plt.legend()
     # TODO: 显示图形
+    plt.grid(True)
+    plt.show()
     pass
 
 def wien_equation(x):
@@ -48,7 +53,9 @@ def wien_equation(x):
     float: 方程的函数值
     """
     # TODO: 返回维恩方程的函数值
-    return None
+    return  5 * np.exp(-x) + x - 5
+
+
 
 def solve_wien_constant(x0):
     """求解维恩位移常数
@@ -65,10 +72,13 @@ def solve_wien_constant(x0):
         - b (float): 维恩位移常数，单位：m·K
     """
     # TODO: 使用fsolve求解非线性方程
-    x = None
+    x = fsolve(wien_equation, x0)[0]
+    h = constants.h
+    c = constants.c
+    k_B = constants.k
     
     # TODO: 计算维恩位移常数
-    b = None
+    b = (h * c) / (k_B * x)
     
     return x, b
 
@@ -85,7 +95,8 @@ def calculate_temperature(wavelength, x0=5.0):
     float: 黑体温度，单位：开尔文
     """
     # TODO: 计算温度
-    return None
+    _, b = solve_wien_constant(x0)
+    return b / wavelength
 
 if __name__ == "__main__":
     # 绘制方程图像
